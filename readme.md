@@ -44,8 +44,6 @@ Enviar PR (Pull Request), cualquier tipo de ayuda será bienvenida
 
 * **Helmer Dávila** - *Trabajo Inicial* - [Github](https://github.com/helmerdavila)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## Licencia
 
 Este proyecto esta licenciado bajo licencia MIT - por favor mirar [LICENSE.md](LICENSE.md) para más detalles
