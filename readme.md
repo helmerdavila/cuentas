@@ -21,7 +21,7 @@ Descripción paso a paso
 Clonar desde el repositorio y entrar a la carpeta
 
 ```
-git clone && cd cuentas
+git clone https://github.com/helmerdavila/cuentas.git && cd cuentas
 ```
 
 Instalar paquetes con NPM
