@@ -16,6 +16,7 @@ module.exports = function(app) {
     app.post('/api/tipoingresos', function(req, res) {
         var nuevoTipoIngreso = new TipoIngreso(req.body);
         nuevoTipoIngreso.created_at = new Date;
+        
         nuevoTipoIngreso.save(function(err) {
             TipoIngreso.find({}, function(err, resultado) {
                 res.json(resultado);
@@ -27,11 +28,9 @@ module.exports = function(app) {
         var idTipoIngreso = req.params.id;
         
         TipoIngreso.findById(idTipoIngreso, function(err, resultado) {
-            
             if (err) {
                 res.send(err);
-            }
-            
+            }    
             res.json(resultado);
         });
     });
@@ -51,11 +50,9 @@ module.exports = function(app) {
         var idTipoIngreso = req.params.id;
     
         TipoIngreso.findByIdAndRemove(idTipoIngreso, function(err, resultado) {
-            
             if (err) {
                 res.send(err);
             }
-            
             res.json(resultado);
         });
     });
@@ -85,11 +82,9 @@ module.exports = function(app) {
         var idTipoEgreso = req.params.id;
         
         TipoEgreso.findById(idTipoEgreso, function(err, resultado) {
-            
             if (err) {
                 res.send(err);
             }
-            
             res.json(resultado);
         });
     });
@@ -109,11 +104,9 @@ module.exports = function(app) {
         var idTipoEgreso = req.params.id;
     
         TipoEgreso.findByIdAndRemove(idTipoEgreso, function(err, resultado) {
-            
             if (err) {
                 res.send(err);
             }
-            
             res.json(resultado);
         });
     });
