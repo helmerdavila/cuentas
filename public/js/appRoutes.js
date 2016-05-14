@@ -8,6 +8,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'partials/tipoingresos.html',
             controller: 'TipoIngresosController'
         })
+        .when('/tipo-egresos', {
+            templateUrl: 'partials/tipoegresos.html',
+            controller: 'TipoEgresosController'
+        })
         .otherwise({
             redirectTo: '/'
         });
