@@ -16,6 +16,7 @@ module.exports = function(app) {
     
     app.post('/api/tipoingresos', function(req, res) {
         var nuevoTipoIngreso = new TipoIngreso(req.body);
+        nuevoTipoIngreso.created_at = new Date;
         nuevoTipoIngreso.save(function(err) {
             TipoIngreso.find({}, function(err, resultado) {
                 res.json(resultado);
