@@ -5,7 +5,10 @@ var Schema = mongoose.Schema;
 
 var TipoEgresoSchema = {
     name: String,
-    created_at: Date
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 };
 
 module.exports = mongoose.model('TipoEgreso', TipoEgresoSchema);

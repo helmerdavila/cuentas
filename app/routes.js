@@ -15,7 +15,6 @@ module.exports = function(app) {
     
     app.post('/api/tipoingresos', function(req, res) {
         var nuevoTipoIngreso = new TipoIngreso(req.body);
-        nuevoTipoIngreso.created_at = new Date;
         
         nuevoTipoIngreso.save(function(err) {
             TipoIngreso.find({}, function(err, resultado) {
@@ -69,7 +68,6 @@ module.exports = function(app) {
     
     app.post('/api/tipoegresos', function(req, res) {
         var nuevoTipoEgreso = new TipoEgreso(req.body);
-        nuevoTipoEgreso.created_at = new Date;
         
         nuevoTipoEgreso.save(function(err) {
             TipoEgreso.find({}, function(err, resultado) {
