@@ -1,5 +1,16 @@
-var TipoIngreso = require('./models/tipoingreso');
-var TipoEgreso = require('./models/tipoegreso');
+'use strict';
+
+let TipoIngreso = require('./models/tipoingreso');
+let TipoEgreso = require('./models/tipoegreso');
+let Ingreso = require('./models/ingreso');
+
+let respuestaMensaje = (codigo, mensaje, descripcion) => {
+    return {
+        codigo: codigo,
+        mensaje: mensaje,
+        descripcion: descripcion
+    }
+}
 
 module.exports = function(app) {
 
@@ -107,6 +118,73 @@ module.exports = function(app) {
             }
             res.json(resultado);
         });
+    });
+    
+    // Rutas Ingreso ===========================================================
+    app.get('/api/ingresos', (req, res) => {
+        Ingreso.find({})
+            .populate('_tipo_ingreso')
+            .then((resultado) => {
+                res.json(resultado);
+            })
+            .catch((err) => {
+                res.status(500).send(respuestaMensaje(500, 'Algo fue mal', 'No se pudieron listar los ingresos'))
+            });
+    });
+    
+    app.post('/api/ingresos', (req, res) => {
+        let nuevoIngreso = new Ingreso(req.body);
+        
+        nuevoIngreso.save()
+            .then(() => {
+                res.status(201).send(respuestaMensaje(201, 'Éxito', 'Se creó el ingreso con éxito'));
+            })
+            .catch((err) => {
+                res.status(500).send(respuestaMensaje(500, 'Algo fue mal', 'No se pudo crear el nuevo ingreso'));
+            });
+    });
+    
+    app.get('/api/ingresos/:id', (req, res) => {
+        let idIngreso = req.params.id;
+        
+        Ingreso.findById(idIngreso)
+            .populate('_tipo_ingreso')
+            .then((resultado) => {
+                res.json(resultado);
+            })
+            .catch((err) => {
+                res.status(404).send(respuestaMensaje(404, 'No encontrado', 'No se encontró el ingreso respectivo'));
+            });
+    });
+    
+    app.put('/api/ingresos/:id', (req, res) => {
+        let idIngreso = req.params.id;
+        let ahora = new Date;
+        let nuevosDatosIngreso = {
+            cantidad: req.body.cantidad,
+            monto: req.body.monto,
+            _tipo_ingreso: req.body._tipo_ingreso
+        }
+        
+        Ingreso.findByIdAndUpdate(idIngreso, nuevosDatosIngreso)
+            .then((resultado) => {
+                res.json(resultado);                
+            })
+            .catch((err) => {
+                res.status(500).send(respuestaMensaje(500, 'Error al actualizar', 'No se pudo actualizar el ingreso'));
+            });
+    });
+    
+    app.delete('/api/ingresos/:id', (req, res) => {
+        let idIngreso = req.params.id;
+    
+        Ingreso.findByIdAndRemove(idIngreso)
+            .then(() => {
+                res.send(respuestaMensaje(200, 'Eliminado', 'Se eliminó el ingreso con éxito'));
+            })
+            .catch((err) => {
+                res.status(404).send(respuestaMensaje(404, 'Error al eliminar', 'No se pudo encontrar el ingreso'))
+            });
     });
 
 	// Rutas Frontend =========================================================
