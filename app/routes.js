@@ -56,7 +56,7 @@ module.exports = function(app) {
         });
     });
     
-    // Rutas Backend ===========================================================
+    // Rutas Tipo Egreso =======================================================
     app.get('/api/tipoegresos', function(req, res) {
         TipoEgreso.find({}, function(err, resultado) {
             if (err) {
